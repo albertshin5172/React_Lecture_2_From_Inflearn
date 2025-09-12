@@ -6,13 +6,22 @@ import React from "react";
 3. If a component wants to use another component, it must import it.
 */
 function Test() {
+  //JSX
+  //1. CamelCase principle: className
+  //2. js:{}
+  //3. css, style, {{}} + object
+  const Temp = 7;
+
   return (
+    // 1. 가정문 : if-else, switch
+    // 2. 반복문 : for
     <div>
-      <h1>This is a Test Component!</h1>
-      <h1>This is a Test Component!</h1>
-      <h1>This is a Test Component!</h1>
-      <h1>This is a Test Component!</h1>
-      <h1>This is a Test Component!</h1>
+      <h1 className="test">
+        {/* <h1 className="" style={{ color: "red", fontSize: "3rem" }}></h1> */}
+        This is a Test Component!
+        <br />
+        {Temp}
+      </h1>
     </div>
   );
 }
