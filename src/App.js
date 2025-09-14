@@ -1,44 +1,70 @@
 //import logo from "./logo.svg";
 //import "./App.css";
-import Test from "./Test";
+//import Test from "./Test";
+import { Route, Routes } from "react-router-dom";
+import Heading from "./Component/Heading";
+import List from "./Component/List";
+import Upload from "./Component/Upload";
+import React, { useState } from "react";
 
 function App() {
+  const [ContentList, setContentList] = useState([]);
+
+  return (
+    <>
+      <Heading />
+      <Routes>
+        <Route
+          path="/list"
+          element={
+            <List ContentList={ContentList} setContentList={setContentList} />
+          }
+        />
+        <Route
+          path="/upload"
+          element={
+            <Upload ContentList={ContentList} setContentList={setContentList} />
+          }
+        />
+      </Routes>
+    </>
+  );
   // 1. Conditional statements: if-else, switch
   // 2. Loop statements: for // map
 
-  let Flag = false;
-  let Arr = [1, 2, 3, 4, 5];
+  //let Flag = false;
+  //let Arr = [1, 2, 3, 4, 5];
 
-  function checkFlag(flag) {
-    if (Flag) {
-      return "It's true.";
-    } else {
-      return "It's False";
-    }
-  }
+  // function checkFlag(flag) {
+  //   if (Flag) {
+  //     return "It's true.";
+  //   } else {
+  //     return "It's False";
+  //   }
+  // }
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <h1>Hello, React!</h1>
-      {checkFlag(Flag)}
-      {/* {Flag ? "It's true." : "It's false."} */}
-      <br />
-      {Arr.map((a, b) => {
-        return (
-          <div key={b}>
-            <p>{a}</p>
-          </div>
-        );
-      })}
-      <Test />
-    </div>
-  );
+  // return (
+  //   <div
+  //     style={{
+  //       display: "flex",
+  //       flexDirection: "column",
+  //       alignItems: "center",
+  //     }}
+  //   >
+  //     <h1>Hello, React!</h1>
+  //     {/*{checkFlag(Flag)}
+  //     {Flag ? "It's true." : "It's false."}
+  //     <br />
+  //     {Arr.map((a, b) => {
+  //       return (
+  //         <div key={b}>
+  //           <p>{a}</p>
+  //         </div>
+  //       );
+  //     })} */}
+  //     <Test />
+  //   </div>
+  // );
 }
 
 export default App;
