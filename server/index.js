@@ -4,6 +4,7 @@ const path = require("path");
 const app = express();
 const port = 5000;
 
+require("dotenv").config();
 // app.get("/", (req, res) => {
 //   res.send("Hello World!");
 // });
@@ -20,10 +21,7 @@ app.get("/express", (req, res) => {
 
 app.listen(port, () => {
   mongoose
-    .connect(
-      //"mongodb+srv://albert5172:<db_password>@cluster0.cfrf9o2.mongodb.net/"
-      "mongodb+srv://albert5172:FCHeZjT4mhfv0lmf@cluster0.cfrf9o2.mongodb.net/"
-    )
+    .connect(process.env.MONGODB_URI)
     .then(() => {
       console.log(`Example app listening on port http://localhost:${port}`);
       console.log(`Connecting MongoDB`);
