@@ -1,4 +1,5 @@
 const express = require("express");
+const { default: mongoose } = require("mongoose");
 const path = require("path");
 const app = express();
 const port = 5000;
@@ -18,5 +19,16 @@ app.get("/express", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  mongoose
+    .connect(
+      //"mongodb+srv://albert5172:<db_password>@cluster0.cfrf9o2.mongodb.net/"
+      "mongodb+srv://albert5172:FCHeZjT4mhfv0lmf@cluster0.cfrf9o2.mongodb.net/"
+    )
+    .then(() => {
+      console.log(`Example app listening on port http://localhost:${port}`);
+      console.log(`Connecting MongoDB`);
+    })
+    .catch((erro) => {
+      console.log(`${err}`);
+    });
 });
