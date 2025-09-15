@@ -11,17 +11,17 @@ import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-     {/* <App /> */}
-    <BrowserRouter>
-      <App />
-      {/* <Routes>
+  //<React.StrictMode>
+  //  {/* <App /> */}
+  <BrowserRouter>
+    <App />
+    {/* <Routes>
         <Route path="/A" element={<A />} />
         <Route path="/B" element={<B />} />
         <Route path="/C" element={<C />} />
       </Routes> */}
-    </BrowserRouter>
-  </React.StrictMode>
+  </BrowserRouter>
+  //</React.StrictMode>
 );
 
 reportWebVitals();

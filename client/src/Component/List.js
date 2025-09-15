@@ -6,9 +6,9 @@ function List(props) {
   const [Text, setText] = useState("");
 
   useEffect(() => {
-    let body = {
-      text: "hello",
-    };
+    // let body = {
+    //   text: "hello",
+    // };
     // Ask the user for their assigned ID
     axios
       .post("/api/test")
