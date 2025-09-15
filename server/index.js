@@ -1,22 +1,28 @@
 const express = require("express");
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 const path = require("path");
 const app = express();
 const port = 5000;
 
 require("dotenv").config();
-// app.get("/", (req, res) => {
-//   res.send("Hello World!");
-// });
 
-app.use(express.static(path.resolve(__dirname, "../client/build")));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../client/build/index.html"));
+// 1. 모든 API 라우트 먼저
+app.post("/api/test", (req, res) => {
+  console.log(req.body);
+  res.status(200).json({ success: true });
 });
 
-app.get("/express", (req, res) => {
-  res.send("Hello Express!");
+// 2. 정적파일 서빙
+app.use(express.static(path.resolve(__dirname, "../client/build")));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// 3. catch-all 라우트 (SPA)
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../client/build/index.html"));
 });
 
 app.listen(port, () => {
@@ -26,7 +32,7 @@ app.listen(port, () => {
       console.log(`Example app listening on port http://localhost:${port}`);
       console.log(`Connecting MongoDB`);
     })
-    .catch((erro) => {
-      console.log(`${err}`);
+    .catch((err) => {
+      console.log(err);
     });
 });
