@@ -1,23 +1,48 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
+
 function Heading() {
   return (
     <Navbar bg="dark" expand="lg" variant="dark">
       <Container>
-        <Navbar.Brand href="#home">React-Community</Navbar.Brand>
+        <Navbar.Brand href="/">React-Community</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">
+            <Link
+              as={Link}
+              to="/"
+              style={{
+                color: "white",
+                textDecoration: "none",
+                marginRight: "10px",
+              }}
+            >
               Home
-            </Nav.Link>
-            <Nav.Link as={Link} to="/upload">
+            </Link>
+            <Link
+              as={Link}
+              to="/upload"
+              style={{
+                color: "white",
+                textDecoration: "none",
+                marginRight: "10px",
+              }}
+            >
               Upload
-            </Nav.Link>
-            <Nav.Link as={Link} to="/list">
+            </Link>
+            <Link
+              as={Link}
+              to="/"
+              style={{
+                color: "white",
+                textDecoration: "none",
+                marginRight: "10px",
+              }}
+            >
               List
-            </Nav.Link>
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
