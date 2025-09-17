@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ImageUpload from "./ImageUpload.js";
 import {
   UploadDiv,
   UploadForm,
@@ -10,6 +11,7 @@ import axios from "axios";
 function Upload(props) {
   const [Title, setTitle] = useState("");
   const [Content, setContent] = useState("");
+  const [Image, setImage] = useState("");
   let navigate = useNavigate();
   //  const [ContentList, setContentList] = useState([]);
 
@@ -23,6 +25,7 @@ function Upload(props) {
     let body = {
       title: Title,
       content: Content,
+      image: Image,
     };
 
     axios
@@ -72,6 +75,7 @@ function Upload(props) {
             setTitle(e.currentTarget.value);
           }}
         />
+        <ImageUpload setImage={setImage} />
         <label htmlFor="Content">Content</label>
         <textarea
           id="content"
