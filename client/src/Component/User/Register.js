@@ -14,6 +14,8 @@ function Register() {
   const [PW, setPW] = useState("");
   const [PWConfirm, setPWConfirm] = useState("");
   const [Flag, setFlag] = useState(false);
+  const [NameCheck, setNameCheck] = useState(false);
+  const [NameInfo, setNameInfo] = useState("");
 
   let navigate = useNavigate();
 
@@ -48,6 +50,28 @@ function Register() {
       }
     });
   };
+
+  const NameCheckFunc = async (e) => {
+    e.preventDefault();
+    if (!Name) {
+      return alert("Please enter your nickname.");
+    }
+
+    let body = {
+      displayName: Name,
+    };
+
+    await axios.post("/api/user/namecheck", body).then((response) => {
+      if (response.data.success) {
+        if (response.data.check) {
+          setNameCheck(true);
+          setNameInfo("사용가능한 닉네임입니다.");
+        } else {
+          setNameInfo("사용불가능한 닉네임입니다.");
+        }
+      }
+    });
+  };
   return (
     <LoginDiv>
       <form>
@@ -56,7 +80,10 @@ function Register() {
           type="name"
           value={Name}
           onChange={(e) => setName(e.currentTarget.value)}
+          disabled={NameCheck}
         />
+        {NameInfo}
+        <button onClick={(e) => NameCheckFunc(e)}>닉네임 중복검사</button>
         <label>이메일</label>
         <input
           type="email"
