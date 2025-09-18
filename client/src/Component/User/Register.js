@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 // import { useSelector } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 
-// import firebase from "../../firebase.js";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../../firebase.js";
 // import axios from "axios";
 
 import { LoginDiv } from "../../Style/UserCSS.js";
@@ -13,6 +14,19 @@ function Register() {
   const [PW, setPW] = useState("");
   const [PWConfirm, setPWConfirm] = useState("");
 
+  const RefisterFunc = async (e) => {
+    e.preventDefault();
+    if (!(Name && Email && PW && PWConfirm)) {
+      return alert("Please fill in all values!");
+    }
+    if (PW !== PWConfirm) {
+      return alert("Password and confirm password values ​​must be the same.");
+    }
+
+    const createdUser = await createUserWithEmailAndPassword(auth, Email, PW);
+    await updateProfile(createdUser.user, { displayName: Name });
+    console.log(createdUser);
+  };
   return (
     <LoginDiv>
       <form>
@@ -42,7 +56,7 @@ function Register() {
           minLength={8}
           onChange={(e) => setPWConfirm(e.currentTarget.value)}
         />
-        <button>회원가입</button>
+        <button onClick={(e) => RefisterFunc(e)}>회원가입</button>
       </form>
     </LoginDiv>
   );
