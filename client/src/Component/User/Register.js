@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 // import { useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../firebase.js";
-// import axios from "axios";
+import axios from "axios";
 
 import { LoginDiv } from "../../Style/UserCSS.js";
 
@@ -13,8 +13,12 @@ function Register() {
   const [Email, setEmail] = useState("");
   const [PW, setPW] = useState("");
   const [PWConfirm, setPWConfirm] = useState("");
+  const [Flag, setFlag] = useState(false);
+
+  let navigate = useNavigate();
 
   const RefisterFunc = async (e) => {
+    setFlag(true);
     e.preventDefault();
     if (!(Name && Email && PW && PWConfirm)) {
       return alert("Please fill in all values!");
@@ -26,6 +30,23 @@ function Register() {
     const createdUser = await createUserWithEmailAndPassword(auth, Email, PW);
     await updateProfile(createdUser.user, { displayName: Name });
     console.log(createdUser);
+
+    let body = {
+      email: createdUser.user.email,
+      displayName: createdUser.user.displayName,
+      uid: createdUser.user.uid,
+    };
+
+    axios.post("/api/user/register", body).then((response) => {
+      setFlag(false);
+      if (response.data.success) {
+        //회원가입 성공시
+        navigate("/login");
+      } else {
+        //회원가입 실패시
+        return alert("Membership registration failed.");
+      }
+    });
   };
   return (
     <LoginDiv>
@@ -56,7 +77,9 @@ function Register() {
           minLength={8}
           onChange={(e) => setPWConfirm(e.currentTarget.value)}
         />
-        <button onClick={(e) => RefisterFunc(e)}>회원가입</button>
+        <button disabled={Flag} onClick={(e) => RefisterFunc(e)}>
+          회원가입
+        </button>
       </form>
     </LoginDiv>
   );

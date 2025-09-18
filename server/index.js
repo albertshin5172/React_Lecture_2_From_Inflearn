@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/post", require("./Router/post.js"));
-
+app.use("/api/user", require("./Router/user.js"));
 // 3. catch-all 라우트 (SPA)
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/build/index.html"));
