@@ -38,8 +38,8 @@ function Edit() {
   }, []);
 
   useEffect(() => {
-    setTitle(PostInfo.title);
-    setContent(PostInfo.content);
+    setTitle(PostInfo.title || "");
+    setContent(PostInfo.content || "");
     //setImage(PostInfo.image);
   }, [PostInfo]);
 
