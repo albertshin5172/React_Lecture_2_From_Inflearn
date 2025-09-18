@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import ImageUpload from "./ImageUpload.js";
 import {
   UploadDiv,
@@ -12,8 +13,18 @@ function Upload(props) {
   const [Title, setTitle] = useState("");
   const [Content, setContent] = useState("");
   const [Image, setImage] = useState("");
+
   let navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+
   //  const [ContentList, setContentList] = useState([]);
+
+  useEffect(() => {
+    if (!user.accessToken) {
+      alert("Only logged in members can post.");
+      navigate("/login");
+    }
+  }, []);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -26,6 +37,7 @@ function Upload(props) {
       title: Title,
       content: Content,
       image: Image,
+      uid: user.uid,
     };
 
     axios

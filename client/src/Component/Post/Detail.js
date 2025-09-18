@@ -12,12 +12,15 @@ import { Spinner } from "react-bootstrap";
 //import "moment/locale/ko";
 
 import { PostDiv, Post, BtnDiv } from "../../Style/PostDetailCSS.js";
+import { useSelector } from "react-redux";
 
 function Detail(props) {
   let params = useParams();
   let navigate = useNavigate();
   const [PostInfo, setpostInfo] = useState({});
   const [Flag, setFlag] = useState(false);
+
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     console.log(params);
@@ -77,15 +80,17 @@ function Detail(props) {
             ) : null}
             <p>{PostInfo.content}</p>
           </Post>
-          <BtnDiv>
-            <Link to={`/edit/${PostInfo.postNum}`}>
-              <button className="edit">Edit</button>
-            </Link>
+          {user.uid === PostInfo.author.uid && (
+            <BtnDiv>
+              <Link to={`/edit/${PostInfo.postNum}`}>
+                <button className="edit">Edit</button>
+              </Link>
 
-            <button className="delete" onClick={() => DeleteHandler()}>
-              Delete
-            </button>
-          </BtnDiv>
+              <button className="delete" onClick={() => DeleteHandler()}>
+                Delete
+              </button>
+            </BtnDiv>
+          )}
         </>
       ) : (
         <Spinner animation="border" role="status">

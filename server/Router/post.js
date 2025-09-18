@@ -4,24 +4,38 @@ const multer = require("multer");
 
 const { Post } = require("../Model/Post.js");
 const { Counter } = require("../Model/Counter.js");
+const { User } = require("../Model/User.js");
 const setUpload = require("../Util/upload.js");
 
 // 1. 모든 API 라우트 먼저
 router.post("/submit", (req, res) => {
   //console.log(req.body);
-  let temp = req.body;
+  //let temp = req.body;
+  let temp = {
+    title: req.body.title,
+    content: req.body.content,
+    image: req.body.Image,
+  };
   Counter.findOne({ name: "counter" })
     .exec()
     .then((counter) => {
       temp.postNum = counter.postNum;
-      const communityPost = new Post(temp);
-      communityPost.save().then(() => {
-        Counter.updateOne({ name: "counter" }, { $inc: { postNum: 1 } }).then(
-          () => {
-            res.status(200).json({ success: true });
-          }
-        );
-      });
+      User.findOne({
+        uid: req.body.uid,
+      })
+        .exec()
+        .then((userInfo) => {
+          temp.author = userInfo._id;
+          const communityPost = new Post(temp);
+          communityPost.save().then(() => {
+            Counter.updateOne(
+              { name: "counter" },
+              { $inc: { postNum: 1 } }
+            ).then(() => {
+              res.status(200).json({ success: true });
+            });
+          });
+        });
     })
     .catch((err) => {
       res.status(400).json({ success: false });
@@ -42,6 +56,7 @@ router.post("/submit", (req, res) => {
 
 router.post("/list", (req, res) => {
   Post.find()
+    .populate("author")
     .exec()
     .then((doc) => {
       res.status(200).json({ success: true, postList: doc });
@@ -53,9 +68,10 @@ router.post("/list", (req, res) => {
 
 router.post("/detail", (req, res) => {
   Post.findOne({ postNum: Number(req.body.postNum) })
+    .populate("author")
     .exec()
     .then((doc) => {
-      console.log("doc::", doc);
+      //console.log("doc::", doc);
       res.status(200).json({ success: true, post: doc });
     })
     .catch((err) => {
@@ -71,7 +87,7 @@ router.post("/edit", (req, res) => {
   Post.updateOne({ postNum: Number(req.body.postNum) }, { $set: temp })
     .exec()
     .then((doc) => {
-      console.log("edit doc::", doc);
+      //console.log("edit doc::", doc);
       res.status(200).json({ success: true, post: doc });
     })
     .catch((err) => {

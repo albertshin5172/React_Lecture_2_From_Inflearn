@@ -66,6 +66,7 @@ function List(props) {
           <ListItem key={post._id || idx}>
             <Link to={`/post/${post.postNum}`}>
               <p className="title">{post.title}</p>
+              <p className="auth">{post.author.displayName}</p>
               <p>{post.content}</p>
             </Link>
           </ListItem>
