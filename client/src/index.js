@@ -9,12 +9,17 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 
+import store from "./Reducer/store";
+import { Provider } from "react-redux";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   //<React.StrictMode>
   //  {/* <App /> */}
   <BrowserRouter>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
     {/* <Routes>
         <Route path="/A" element={<A />} />
         <Route path="/B" element={<B />} />

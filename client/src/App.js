@@ -1,7 +1,11 @@
 //import logo from "./logo.svg";
 //import "./App.css";
 //import Test from "./Test";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
+//import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { loginUser, clearUser } from "./Reducer/userSlice";
 import Heading from "./Component/Heading";
 import List from "./Component/Post/List";
 import Upload from "./Component/Post/Upload";
@@ -11,8 +15,29 @@ import Edit from "./Component/Post/Edit";
 import Login from "./Component/User/Login";
 import Register from "./Component/User/Register";
 
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "./firebase.js";
+
 function App() {
   //const [ContentList, setContentList] = useState([]);
+  const dispatch = useDispatch();
+  //const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (userInfo) => {
+      console.log("userInfo : ", userInfo);
+      if (userInfo !== null) {
+        dispatch(loginUser(userInfo));
+      } else {
+        dispatch(clearUser());
+      }
+    });
+  }, []);
+  //}, [user]);
+
+  // useEffect(() => {
+  //   signOut(auth);
+  // }, []);
 
   return (
     <>
