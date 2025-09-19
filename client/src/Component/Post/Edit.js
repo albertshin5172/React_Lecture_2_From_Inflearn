@@ -9,6 +9,7 @@ import {
   UploadForm,
   UploadButtonDiv,
 } from "../../Style/UploadCSS.js";
+import ImageUpload from "./ImageUpload.js";
 
 function Edit() {
   let params = useParams();
@@ -18,7 +19,7 @@ function Edit() {
   const [Flag, setFlag] = useState(false);
   const [Title, setTitle] = useState("");
   const [Content, setContent] = useState("");
-  //const [Image, setImage] = useState("");
+  const [Image, setImage] = useState("");
 
   useEffect(() => {
     let body = {
@@ -35,12 +36,12 @@ function Edit() {
       .catch((err) => {
         console.log(err);
       });
-  }, [params.postNum]);
+  }, []);
 
   useEffect(() => {
     setTitle(PostInfo.title || "");
     setContent(PostInfo.content || "");
-    //setImage(PostInfo.image);
+    setImage(PostInfo.image);
   }, [PostInfo]);
 
   const onSubmit = (e) => {
@@ -54,7 +55,7 @@ function Edit() {
       title: Title,
       content: Content,
       postNum: params.postNum,
-      // image: Image,
+      image: Image,
     };
 
     axios
@@ -85,8 +86,7 @@ function Edit() {
               setTitle(e.currentTarget.value);
             }}
           />
-          {/* <ImageUpload setImage={setImage} />
-           */}
+          <ImageUpload setImage={setImage} />
           <label htmlFor="content">내용</label>
           <textarea
             id="content"

@@ -30,6 +30,7 @@ function Detail(props) {
     axios
       .post("/api/post/detail", body)
       .then((response) => {
+        console.log("response ::: ", response.data);
         if (response.data.success) {
           setpostInfo(response.data.post);
           setFlag(true);
@@ -43,7 +44,7 @@ function Detail(props) {
 
   useEffect(() => {
     console.log("postInfo ::: ", PostInfo);
-  }, [PostInfo]);
+  }, []);
 
   const DeleteHandler = () => {
     if (window.confirm("정말로 삭제하시겠습니까?")) {

@@ -9,6 +9,7 @@ require("dotenv").config();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "./client/build")));
 app.use("/image", express.static("./image"));
 // 2. 정적파일 서빙
 app.use(express.static(path.resolve(__dirname, "../client/build/index.html")));

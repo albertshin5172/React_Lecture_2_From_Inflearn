@@ -14,7 +14,7 @@ router.post("/submit", (req, res) => {
   let temp = {
     title: req.body.title,
     content: req.body.content,
-    image: req.body.Image,
+    image: req.body.image,
   };
   Counter.findOne({ name: "counter" })
     .exec()

@@ -15,7 +15,8 @@ import Edit from "./Component/Post/Edit";
 import Login from "./Component/User/Login";
 import Register from "./Component/User/Register";
 
-import { onAuthStateChanged, signOut } from "firebase/auth";
+//import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase.js";
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
         dispatch(clearUser());
       }
     });
-  }, []);
+  }, [dispatch]);
   //}, [user]);
 
   // useEffect(() => {
