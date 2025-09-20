@@ -11,7 +11,12 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 //import moment from "moment";
 //import "moment/locale/ko";
 
-import { PostDiv, Post, BtnDiv } from "../../Style/PostDetailCSS.js";
+import {
+  PostDiv,
+  SpinnerDiv,
+  Post,
+  BtnDiv,
+} from "../../Style/PostDetailCSS.js";
 import { useSelector } from "react-redux";
 
 function Detail(props) {
@@ -47,7 +52,7 @@ function Detail(props) {
   }, []);
 
   const DeleteHandler = () => {
-    if (window.confirm("정말로 삭제하시겠습니까?")) {
+    if (window.confirm("Are you sure you want to delete it?")) {
       let body = {
         postNum: params.postNum,
       };
@@ -55,43 +60,51 @@ function Detail(props) {
         .post("/api/post/delete", body)
         .then((response) => {
           if (response.data.success) {
-            alert("게시글이 삭제되었습니다.");
+            alert("The post has been deleted.");
             navigate("/");
           }
         })
         .catch((err) => {
-          alert("게시글 삭제에 실패하였습니다.");
+          alert("Failed to delete post.");
         });
     }
   };
 
   return (
     <PostDiv>
-      <Post>
-        <h1>{props.PostInfo.title}</h1>
-        <p className="author">{props.PostInfo.author.displayNmae} </p>
-        {props.PostInfo.image ? (
-          <img
-            // src={`http://localhost:5000/${PostInfo.image}`}
-            // src={`${PostInfo.image}`}
-            src={props.PostInfo.image}
-            alt=""
-            style={{ width: "100%", height: "auto" }}
-          />
-        ) : null}
-        <p>{props.PostInfo.content}</p>
-      </Post>
-      {user.uid === props.PostInfo.author.uid && (
-        <BtnDiv>
-          {/* <Link to={`/edit/${PostInfo.postNum}`}> */}
-          <Link to={`/edit/${props.PostInfo.postNum}`}>
-            <button className="edit">Edit</button>
-          </Link>
+      {Flag ? (
+        <>
+          <Post>
+            <h1>{props.PostInfo.title}</h1>
+            <p className="author">{props.PostInfo.author.displayNmae} </p>
+            {props.PostInfo.image ? (
+              <img
+                // src={`http://localhost:5000/${PostInfo.image}`}
+                // src={`${PostInfo.image}`}
+                src={props.PostInfo.image}
+                alt=""
+                style={{ width: "100%", height: "auto" }}
+              />
+            ) : null}
+            <p>{props.PostInfo.content}</p>
+          </Post>
+          {user.uid === props.PostInfo.author.uid && (
+            <BtnDiv>
+              {/* <Link to={`/edit/${PostInfo.postNum}`}> */}
+              <Link to={`/edit/${props.PostInfo.postNum}`}>
+                <button className="edit">Edit</button>
+              </Link>
 
-          <button className="delete" onClick={() => DeleteHandler()}>
-            Delete
-          </button>
-        </BtnDiv>
+              <button className="delete" onClick={() => DeleteHandler()}>
+                Delete
+              </button>
+            </BtnDiv>
+          )}
+        </>
+      ) : (
+        <SpinnerDiv animation="border" role="state">
+          <span className="visulally-hidden">Loaing...</span>
+        </SpinnerDiv>
       )}
     </PostDiv>
   );
