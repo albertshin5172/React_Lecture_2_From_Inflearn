@@ -60,14 +60,13 @@ function App() {
           // }
         />
         <Route path="/post/:postNum" element={<PostArea />} />
-        <Route
+        {/* <Route
           path="/post/:postNum"
-          element={<PostArea />}
-          // element={<Detail />}
-          // element={
-          //   <Detail ContentList={ContentList} setContentList={setContentList} />
-          // }
-        />
+          element={<Detail />}
+          element={
+            <Detail ContentList={ContentList} setContentList={setContentList} />
+          }
+        /> */}
         <Route path="/edit/:postNum" element={<Edit />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

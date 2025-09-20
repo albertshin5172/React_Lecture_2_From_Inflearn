@@ -36,8 +36,7 @@ function PostArea() {
       {Flag ? (
         <>
           <Detail PostInfo={PostInfo} />
-          <RepleArea />
-          {/* <RepleArea postId={PostInfo._id} /> */}
+          <RepleArea postId={PostInfo._id} />
         </>
       ) : (
         <SpinnerDiv>

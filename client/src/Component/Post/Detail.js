@@ -11,44 +11,39 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 //import moment from "moment";
 //import "moment/locale/ko";
 
-import {
-  PostDiv,
-  SpinnerDiv,
-  Post,
-  BtnDiv,
-} from "../../Style/PostDetailCSS.js";
+import { PostDiv, Post, BtnDiv } from "../../Style/PostDetailCSS.js";
 import { useSelector } from "react-redux";
 
 function Detail(props) {
   let params = useParams();
   let navigate = useNavigate();
-  const [PostInfo, setpostInfo] = useState({});
-  const [Flag, setFlag] = useState(false);
+  // const [PostInfo, setpostInfo] = useState({});
+  // const [Flag, setFlag] = useState(false);
 
   const user = useSelector((state) => state.user);
 
-  useEffect(() => {
-    console.log(params);
-    let body = {
-      postNum: params.postNum,
-    };
-    axios
-      .post("/api/post/detail", body)
-      .then((response) => {
-        console.log("response ::: ", response.data);
-        if (response.data.success) {
-          setpostInfo(response.data.post);
-          setFlag(true);
-        }
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   console.log(params);
+  //   let body = {
+  //     postNum: params.postNum,
+  //   };
+  //   axios
+  //     .post("/api/post/detail", body)
+  //     .then((response) => {
+  //       console.log("response ::: ", response.data);
+  //       if (response.data.success) {
+  //         setpostInfo(response.data.post);
+  //         setFlag(true);
+  //       }
+  //       console.log(response);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   useEffect(() => {
-    console.log("postInfo ::: ", PostInfo);
+    //  console.log("postInfo ::: ", PostInfo);
   }, []);
 
   const DeleteHandler = () => {
@@ -72,39 +67,31 @@ function Detail(props) {
 
   return (
     <PostDiv>
-      {Flag ? (
-        <>
-          <Post>
-            <h1>{props.PostInfo.title}</h1>
-            <p className="author">{props.PostInfo.author.displayNmae} </p>
-            {props.PostInfo.image ? (
-              <img
-                // src={`http://localhost:5000/${PostInfo.image}`}
-                // src={`${PostInfo.image}`}
-                src={props.PostInfo.image}
-                alt=""
-                style={{ width: "100%", height: "auto" }}
-              />
-            ) : null}
-            <p>{props.PostInfo.content}</p>
-          </Post>
-          {user.uid === props.PostInfo.author.uid && (
-            <BtnDiv>
-              {/* <Link to={`/edit/${PostInfo.postNum}`}> */}
-              <Link to={`/edit/${props.PostInfo.postNum}`}>
-                <button className="edit">Edit</button>
-              </Link>
+      <Post>
+        <h1>{props.PostInfo.title}</h1>
+        <p className="author">{props.PostInfo.author.displayNmae} </p>
+        {props.PostInfo.image ? (
+          <img
+            // src={`http://localhost:5000/${PostInfo.image}`}
+            // src={`${PostInfo.image}`}
+            src={props.PostInfo.image}
+            alt=""
+            style={{ width: "100%", height: "auto" }}
+          />
+        ) : null}
+        <p>{props.PostInfo.content}</p>
+      </Post>
+      {user.uid === props.PostInfo.author.uid && (
+        <BtnDiv>
+          {/* <Link to={`/edit/${PostInfo.postNum}`}> */}
+          <Link to={`/edit/${props.PostInfo.postNum}`}>
+            <button className="edit">Edit</button>
+          </Link>
 
-              <button className="delete" onClick={() => DeleteHandler()}>
-                Delete
-              </button>
-            </BtnDiv>
-          )}
-        </>
-      ) : (
-        <SpinnerDiv animation="border" role="state">
-          <span className="visulally-hidden">Loaing...</span>
-        </SpinnerDiv>
+          <button className="delete" onClick={() => DeleteHandler()}>
+            Delete
+          </button>
+        </BtnDiv>
       )}
     </PostDiv>
   );
