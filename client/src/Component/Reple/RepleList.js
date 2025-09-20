@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { RepleContentDiv, RepleListDiv } from "../../Style/RepleCSS";
+import { RepleListDiv } from "../../Style/RepleCSS";
 import RepleContent from "./RepleContent";
 
 function RepleList(props) {
