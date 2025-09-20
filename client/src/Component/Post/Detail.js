@@ -4,7 +4,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { Spinner } from "react-bootstrap";
+//import { Spinner } from "react-bootstrap";
 //import Avatar from "react-avatar";
 //import axios from "axios";
 
@@ -67,36 +67,31 @@ function Detail(props) {
 
   return (
     <PostDiv>
-      {Flag ? (
-        <>
-          <Post>
-            <h1>{PostInfo.title}</h1>
-            {PostInfo.image ? (
-              <img
-                // src={`http://localhost:5000/${PostInfo.image}`}
-                src={`${PostInfo.image}`}
-                alt=""
-                style={{ width: "100%", height: "auto" }}
-              />
-            ) : null}
-            <p>{PostInfo.content}</p>
-          </Post>
-          {user.uid === PostInfo.author.uid && (
-            <BtnDiv>
-              <Link to={`/edit/${PostInfo.postNum}`}>
-                <button className="edit">Edit</button>
-              </Link>
+      <Post>
+        <h1>{props.PostInfo.title}</h1>
+        <p className="author">{props.PostInfo.author.displayNmae} </p>
+        {props.PostInfo.image ? (
+          <img
+            // src={`http://localhost:5000/${PostInfo.image}`}
+            // src={`${PostInfo.image}`}
+            src={props.PostInfo.image}
+            alt=""
+            style={{ width: "100%", height: "auto" }}
+          />
+        ) : null}
+        <p>{props.PostInfo.content}</p>
+      </Post>
+      {user.uid === props.PostInfo.author.uid && (
+        <BtnDiv>
+          {/* <Link to={`/edit/${PostInfo.postNum}`}> */}
+          <Link to={`/edit/${props.PostInfo.postNum}`}>
+            <button className="edit">Edit</button>
+          </Link>
 
-              <button className="delete" onClick={() => DeleteHandler()}>
-                Delete
-              </button>
-            </BtnDiv>
-          )}
-        </>
-      ) : (
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading....</span>
-        </Spinner>
+          <button className="delete" onClick={() => DeleteHandler()}>
+            Delete
+          </button>
+        </BtnDiv>
       )}
     </PostDiv>
   );

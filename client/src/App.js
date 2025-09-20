@@ -9,8 +9,9 @@ import { loginUser, clearUser } from "./Reducer/userSlice";
 import Heading from "./Component/Heading";
 import List from "./Component/Post/List";
 import Upload from "./Component/Post/Upload";
+import PostArea from "./Component/Post/PostArea";
 //import React, { useState } from "react";
-import Detail from "./Component/Post/Detail";
+//import Detail from "./Component/Post/Detail";
 import Edit from "./Component/Post/Edit";
 import Login from "./Component/User/Login";
 import Register from "./Component/User/Register";
@@ -58,9 +59,11 @@ function App() {
           //   <Upload ContentList={ContentList} setContentList={setContentList} />
           // }
         />
+        <Route path="/post/:postNum" element={<PostArea />} />
         <Route
           path="/post/:postNum"
-          element={<Detail />}
+          element={<PostArea />}
+          // element={<Detail />}
           // element={
           //   <Detail ContentList={ContentList} setContentList={setContentList} />
           // }
