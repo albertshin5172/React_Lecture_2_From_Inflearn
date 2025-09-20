@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { RepleUploadDiv } from "../../Style/RepleCSS";
 
 //import { RepleUploadDiv } from "../../Style/RepleCSS.js";
 
@@ -31,7 +32,7 @@ function RepleUpload(props) {
   };
 
   return (
-    <div>
+    <RepleUploadDiv>
       <form>
         <input
           type="text"
@@ -48,7 +49,7 @@ function RepleUpload(props) {
           Register
         </button>
       </form>
-    </div>
+    </RepleUploadDiv>
   );
   // const [Reple, setReple] = useState("");
   // const user = useSelector((state) => state.user);

@@ -16,7 +16,7 @@ function RepleList(props) {
         setrepleList([...response.data.repleList]);
       }
     });
-  }, []);
+  }, [props.postId]);
 
   return (
     <RepleListDiv>

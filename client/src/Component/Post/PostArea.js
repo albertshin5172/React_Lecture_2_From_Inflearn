@@ -29,7 +29,7 @@ function PostArea() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [params.postNum]);
 
   return (
     <div>
