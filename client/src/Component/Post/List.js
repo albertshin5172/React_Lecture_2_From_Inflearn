@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+//import React, { useState, useEffect } from "react";
+//import axios from "axios";
 import { Link } from "react-router-dom";
 import { ListDiv, ListItem } from "../../Style/ListCSS.js";
 import Avatar from "react-avatar";
 //import { Button } from "react-bootstrap";
+
+import moment from "moment";
+import "moment/locale/ko";
 
 function List(props) {
   //  const [ContentList, setContentList] = useState([]);
@@ -31,38 +34,46 @@ function List(props) {
   }, []);
   */
 
-  const [PostList, setPostList] = useState([]);
+  // const [PostList, setPostList] = useState([]);
 
-  useEffect(() => {
-    axios
-      .post("/api/post/list")
-      .then((response) => {
-        if (response.data.success) {
-          setPostList([...response.data.postList]);
-        }
-        // Success Handling
-        //console.log(response.data);
-      })
-      .catch((error) => {
-        if (error.response) {
-          // 서버가 상태 코드와 응답을 돌려줌
-          console.log("Error status:", error.response.status);
-          console.log("Error data:", error.response.data);
-        } else if (error.request) {
-          // 요청은 되었으나 응답이 없음
-          console.log("No response received:", error.request);
-        } else {
-          // 요청 세팅 중 발생한 에러
-          console.log("Error message:", error.message);
-        }
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .post("/api/post/list")
+  //     .then((response) => {
+  //       if (response.data.success) {
+  //         setPostList([...response.data.postList]);
+  //       }
+  //       // Success Handling
+  //       //console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       if (error.response) {
+  //         // 서버가 상태 코드와 응답을 돌려줌
+  //         console.log("Error status:", error.response.status);
+  //         console.log("Error data:", error.response.data);
+  //       } else if (error.request) {
+  //         // 요청은 되었으나 응답이 없음
+  //         console.log("No response received:", error.request);
+  //       } else {
+  //         // 요청 세팅 중 발생한 에러
+  //         console.log("Error message:", error.message);
+  //       }
+  //     });
+  // }, []);
+
+  const SetTime = (a, b) => {
+    if (a !== b) {
+      return moment(b).format("YYYY년 MMMM Do, hh:mm") + "(수정됨)";
+    } else {
+      return moment(a).format("YYYY년 MMMM Do, hh:mm");
+    }
+  };
 
   return (
     <ListDiv>
-      <h3>List!</h3>
+      {/* <h3>List!</h3> */}
       {/* <h3>{Text}</h3> */}
-      {PostList.map((post, idx) => {
+      {props.PostList.map((post, idx) => {
         return (
           <ListItem key={post._id || idx}>
             <Link to={`/post/${post.postNum}`}>
@@ -86,6 +97,9 @@ function List(props) {
                   }}
                 />
                 <span className="auth">{post.author.displayName}</span>
+                <p className="time">
+                  {SetTime(post.createdAt, post.updatedAt)}
+                </p>
               </div>
               <p>{post.content}</p>
             </Link>

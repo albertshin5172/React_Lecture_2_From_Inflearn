@@ -10,6 +10,7 @@ import Heading from "./Component/Heading";
 import List from "./Component/Post/List";
 import Upload from "./Component/Post/Upload";
 import PostArea from "./Component/Post/PostArea";
+import MainPage from "./Component/MainPage";
 //import React, { useState } from "react";
 //import Detail from "./Component/Post/Detail";
 import Edit from "./Component/Post/Edit";
@@ -46,6 +47,7 @@ function App() {
     <>
       <Heading />
       <Routes>
+        <Route path="/" element={<MainPage />} />
         <Route
           path="/"
           element={<List />}
