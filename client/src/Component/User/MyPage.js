@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Avatar from "react-avatar";
 import axios from "axios";
-import firebase from "../../firebase.js";
+import { getAuth, updateProfile } from "firebase/auth";
 import { MyPageDiv } from "../../Style/UserCSS.js";
 
 function MyPage() {
@@ -18,7 +18,7 @@ function MyPage() {
     } else {
       setCurrentImage(user.photoURL);
     }
-  }, [user]);
+  }, [user, navigate]);
 
   const ImageUpload = (e) => {
     var formData = new FormData();
@@ -30,25 +30,33 @@ function MyPage() {
 
   const SaveProfile = async (e) => {
     e.preventDefault();
-    try {
-      await firebase.auth().currentUser.updateProfile({
-        photoURL: CurrentImage,
-      });
-    } catch (error) {
-      return alert("프로필 저장에 실패하였습니다.");
+    const auth = getAuth();
+    const currentUser = auth.currentUser;
+
+    if (!currentUser) {
+      alert("You must log in.");
+      return;
     }
-    let body = {
-      photoURL: CurrentImage,
-      uid: user.uid,
-    };
-    axios.post("/api/user/profile/update", body).then((response) => {
+    try {
+      await updateProfile(currentUser, { photoURL: CurrentImage });
+      console.log("Firebase updateProfile success");
+    } catch (error) {
+      console.error("Firebase updateProfile error:", error);
+      return alert("Failed to save profile.");
+    }
+    let body = { photoURL: CurrentImage, uid: user.uid };
+    try {
+      const response = await axios.post("/api/user/profile/update", body);
       if (response.data.success) {
-        alert("프로필 저장에 성공하였습니다.");
+        alert("Profile saved successfully.");
         window.location.reload();
       } else {
-        return alert("프로필 저장에 실패하였습니다.");
+        alert("Failed to save profile.");
       }
-    });
+    } catch (error) {
+      console.error("Profile update API error:", error);
+      alert("Failed to save profile.");
+    }
   };
 
   return (

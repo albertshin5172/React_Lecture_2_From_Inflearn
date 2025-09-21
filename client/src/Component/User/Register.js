@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -30,13 +30,19 @@ function Register() {
     }
 
     const createdUser = await createUserWithEmailAndPassword(auth, Email, PW);
-    await updateProfile(createdUser.user, { displayName: Name });
+    await updateProfile(createdUser.user, {
+      displayName: Name,
+      photoURL:
+        "https://kr.object.ncloudstorage.com/react-lecture/user/upload.png",
+    });
     console.log(createdUser);
 
     let body = {
       email: createdUser.user.email,
       displayName: createdUser.user.displayName,
       uid: createdUser.user.uid,
+      photoURL:
+        "https://kr.object.ncloudstorage.com/react-lecture/user/upload.png",
     };
 
     axios.post("/api/user/register", body).then((response) => {

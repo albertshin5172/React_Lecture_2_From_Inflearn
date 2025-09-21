@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { ListDiv, ListItem } from "../../Style/ListCSS.js";
+import Avatar from "react-avatar";
 //import { Button } from "react-bootstrap";
 
 function List(props) {
@@ -66,7 +67,26 @@ function List(props) {
           <ListItem key={post._id || idx}>
             <Link to={`/post/${post.postNum}`}>
               <p className="title">{post.title}</p>
-              <p className="auth">{post.author.displayName}</p>
+              <div
+                className="author"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-start", // 👈 좌측 정렬 강제
+                  gap: "8px",
+                }}
+              >
+                <Avatar
+                  size="40"
+                  round={true}
+                  src={post.author.photoURL}
+                  style={{
+                    border: "1px solid #c6c6c6",
+                    display: "inline-block",
+                  }}
+                />
+                <span className="auth">{post.author.displayName}</span>
+              </div>
               <p>{post.content}</p>
             </Link>
           </ListItem>

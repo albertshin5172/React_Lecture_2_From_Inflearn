@@ -5,7 +5,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 //import { Spinner } from "react-bootstrap";
-//import Avatar from "react-avatar";
+import Avatar from "react-avatar";
 //import axios from "axios";
 
 //import moment from "moment";
@@ -69,7 +69,27 @@ function Detail(props) {
     <PostDiv>
       <Post>
         <h1>{props.PostInfo.title}</h1>
-        <p className="author">{props.PostInfo.author.displayNmae} </p>
+        <div
+          className="author"
+          style={{
+            display: "flex",
+            flexDirection: "row", // 👈 방향 강제
+            alignItems: "center",
+            justifyContent: "flex-start",
+            gap: "8px",
+            whiteSpace: "nowrap", // 👈 줄바꿈 방지
+          }}
+        >
+          <Avatar
+            size="40"
+            round={true}
+            src={props.PostInfo.author.photoURL}
+            style={{ border: "1px solid #c6c6c6", display: "inline-block" }}
+          />
+          <span style={{ display: "inline-block" }}>
+            {props.PostInfo.author.displayName}
+          </span>
+        </div>
         {props.PostInfo.image ? (
           <img
             // src={`http://localhost:5000/${PostInfo.image}`}

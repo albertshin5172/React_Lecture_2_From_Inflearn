@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
+import Avatar from "react-avatar";
 // import Avatar from "react-avatar";
 
 import { RepleContentDiv, RepleUploadDiv } from "../../Style/RepleCSS";
@@ -59,8 +60,26 @@ function RepleContent(props) {
 
   return (
     <RepleContentDiv>
-      <div className="author">
-        <p>{props.reple.author.displayName}</p>
+      <div
+        className="author"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between", // 👈 좌우 끝으로 분리
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+          <Avatar
+            size="30"
+            round={true}
+            src={props.reple.author.photoURL}
+            style={{
+              border: "1px solid #c6c6c6",
+              display: "inline-block",
+            }}
+          />
+          <span>{props.reple.author.displayName}</span>
+        </div>
         {props.reple.author.uid === user.uid && (
           <div className="modalControl">
             <span onClick={() => setModalFlag(true)}>···</span>

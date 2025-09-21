@@ -15,6 +15,7 @@ import PostArea from "./Component/Post/PostArea";
 import Edit from "./Component/Post/Edit";
 import Login from "./Component/User/Login";
 import Register from "./Component/User/Register";
+import MyPage from "./Component/User/MyPage.js";
 
 //import { onAuthStateChanged, signOut } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
@@ -52,6 +53,7 @@ function App() {
           //   <List ContentList={ContentList} setContentList={setContentList} />
           // }
         />
+        {/*Post, Reple*/}
         <Route
           path="/upload"
           element={<Upload />}
@@ -68,8 +70,16 @@ function App() {
           }
         /> */}
         <Route path="/edit/:postNum" element={<Edit />} />
+        {/*User*/}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/mypage" element={<MyPage />} />
+
+        {/*
+          1. Search
+          2. Select user profile image + replace with desired image
+          3. Sort (Newest / Most Popular: repleNum)
+        */}
       </Routes>
     </>
   );
