@@ -7,6 +7,7 @@
 // }
 // server/config/key.js
 module.exports = {
-  mongoURI: process.env.MONGO_URI,
-  secretOrKey: process.env.JWT_SECRET,
+  mongoURI: process.env.MONGODB_URI,
+  access_key: process.env.ACCESS_KEY,
+  secret_key: process.env.SECRET_KEY,
 };
