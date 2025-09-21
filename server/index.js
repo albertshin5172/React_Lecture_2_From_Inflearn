@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 //const fluffy = require("fluffy-module"); // or the correct module name
 
 require("dotenv").config();

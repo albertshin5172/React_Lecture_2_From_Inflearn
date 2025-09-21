@@ -52,27 +52,28 @@ function Heading() {
         </Navbar.Collapse>
         <Navbar.Collapse id="justify-content-end">
           {user.accessToken ? (
-            <>
-              <Navbar.Text
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                lineHeight: "1.2",
+              }}
+            >
+              <div
                 style={{ color: "white", cursor: "pointer" }}
                 onClick={() => LogoutHandler()}
               >
                 LOGOUT
-              </Navbar.Text>
-              <br />
-              <Navbar.Text style={{ color: "white", cursor: "pointer" }}>
+              </div>
+              <div>
                 <Link
                   to="/MyPage"
-                  style={{
-                    color: "white",
-                    textDecoration: "none",
-                    marginRight: "10px",
-                  }}
+                  style={{ color: "white", textDecoration: "none" }}
                 >
                   MyPage
                 </Link>
-              </Navbar.Text>
-            </>
+              </div>
+            </div>
           ) : (
             <Link
               as={Link}
