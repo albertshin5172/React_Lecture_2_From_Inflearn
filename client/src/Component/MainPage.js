@@ -21,10 +21,12 @@ function MainPage() {
       .post("/api/post/list", body)
       .then((response) => {
         if (response.data.success) {
-          setPostList([...PostList, ...response.data.postList]);
-          setSkip(Skip + response.data.postList.length);
-          if (response.data.postList.length < 5) {
+          setPostList((prev) => [...prev, ...response.data.postList]);
+          setSkip((prev) => prev + response.data.postList.length);
+          if (response.data.postList.length < 3) {
             setLoadMore(false);
+          } else {
+            setLoadMore(true);
           }
         }
       })
@@ -46,7 +48,7 @@ function MainPage() {
         if (response.data.success) {
           setPostList([...response.data.postList]);
           setSkip(response.data.postList.length);
-          if (response.data.postList.length < 5) {
+          if (response.data.postList.length < 3) {
             setLoadMore(false);
           }
           if (response.data.postList.length === 0) {

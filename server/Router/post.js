@@ -72,7 +72,7 @@ router.post("/list", (req, res) => {
     .populate("author")
     .sort(sort)
     .skip(req.body.skip) // 0, 5
-    .limit(5) //Number of documents to find at once
+    .limit(3) //Number of documents to find at once
     .exec()
     .then((doc) => {
       res.status(200).json({ success: true, postList: doc });
