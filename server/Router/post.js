@@ -55,8 +55,24 @@ router.post("/submit", (req, res) => {
 });
 
 router.post("/list", (req, res) => {
-  Post.find()
+  let sort = {};
+
+  if (req.body.sort === "Latest") {
+    sort.createdAt = -1;
+  } else {
+    //인기순
+    sort.repleNum = -1;
+  }
+  Post.find({
+    $or: [
+      { title: { $regex: req.body.searchTerm } },
+      { content: { $regex: req.body.searchTerm } },
+    ],
+  })
     .populate("author")
+    .sort(sort)
+    .skip(req.body.skip) // 0, 5
+    .limit(5) //Number of documents to find at once
     .exec()
     .then((doc) => {
       res.status(200).json({ success: true, postList: doc });
