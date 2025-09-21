@@ -33,33 +33,6 @@ function MainPage() {
       });
   };
 
-  // const getPostList = () => {
-  //   setSkip(0);
-
-  //   let body = {
-  //     sort: Sort,
-  //     searchTerm: SearchTerm,
-  //     skip: 0,
-  //   };
-
-  //   axios
-  //     .post("/api/post/list", body)
-  //     .then((response) => {
-  //       if (response.data.success) {
-  //         setPostList([...response.data.postList]);
-  //         setSkip(response.data.postList.length);
-  //         if (response.data.postList.length < 5) {
-  //           setLoadMore(false);
-  //         }
-  //         if (response.data.postList.length === 0) {
-  //           setLoadMore(false);
-  //         }
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
   const getPostList = useCallback(() => {
     setSkip(0);
     let body = {
