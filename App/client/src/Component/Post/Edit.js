@@ -87,7 +87,7 @@ function Edit() {
             }}
           />
           <ImageUpload setImage={setImage} />
-          <label htmlFor="content">내용</label>
+          <label htmlFor="content">Content</label>
           <textarea
             id="content"
             value={Content}
@@ -103,14 +103,14 @@ function Edit() {
                 navigate(-1);
               }}
             >
-              취소
+              Cancel
             </button>
             <button
               onClick={(e) => {
                 onSubmit(e);
               }}
             >
-              제출
+              Submit
             </button>
           </UploadButtonDiv>
         </UploadForm>
