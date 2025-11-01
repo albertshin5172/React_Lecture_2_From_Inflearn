@@ -89,6 +89,7 @@ Date	Progress Summary
 2025-09-20	Added post CRUD and image upload (S3 integration)
 2025-09-25	Completed comments feature and search/filter system
 2025-09-26	Deployed project to Heroku with environment configs
+2025-09-27  Release the project online
 🔗 GitHub
 
 Repository: https://github.com/albertshin5172/MERN_Community_Project
